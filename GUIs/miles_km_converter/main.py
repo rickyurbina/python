@@ -10,7 +10,7 @@ window = Tk()
 window.title("Convertidor de Millas a Kms")
 window.config(padx=20, pady=20)
 
-millas = Entry(width=7, Text=0)
+millas = Entry(width=7, text=0)
 millas.grid(column=1, row=0)
 
 mill_Label = Label(text="Millas")
