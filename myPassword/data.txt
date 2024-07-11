@@ -3,3 +3,4 @@ Github | mail@gmail.com | 333333
 Amazon2 | mail@gmail.com | 12333
 amazon 3 | mail@gmail.com | 321111
 Amazon4 | mail@gmail.com | 4444
+amazon | mail@gmail.com | 123123
