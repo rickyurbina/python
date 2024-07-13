@@ -30,6 +30,22 @@ def generate_password():
 
 #--------- Funciones  -------------------
 
+def find_password():
+    website = website_entry.get()
+    try:
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+            messagebox.showinfo(title="Error", message="Archivo Vacio")
+    else:
+        if website in data:
+            print(data[website])
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(title="No Encontrado", message=f"El sitio {website} no esta registrado")
+
 def save():
     website = website_entry.get()
     email = email_entry.get()
@@ -47,17 +63,17 @@ def save():
         # Agregamos el manejo de errores para cuando el archivo .jsnon no existe aun, en ese caso solamente 
         # se crea un archivo nuevo con la información
         try:        # ------------- codigo que se intenta ejecutar
-            with open("data.json", "w") as data_file:
+            with open("data.json", "r") as data_file:
                 #reading old data
-                data = json.load (data_file)
+                data = json.load(data_file)
         except FileNotFoundError:       # ------------- codigo que se ejecuta is hay un error
-            with open("data.json", w) as data_file:
-                json.dump(data, data_file, indent=4)
+            with open("data.json", "w") as data_file:
+                json.dump(new_data, data_file, indent=4)
         else:           # ------------- Codigo que se ejecuta si no hay error en el intento
             #Updating old data with new data
             data.update(new_data)
 
-            with open("data.json", w) as data_file:
+            with open("data.json", "w") as data_file:
                 #saving updated data
                 json.dump(data, data_file, indent=4)
         finally:            # -------------    Codigo que se ejecuta haya error o no 
@@ -84,8 +100,8 @@ pass_label = Label(text="Password")
 pass_label.grid(row=3, column=0)
 
 # Inputs
-website_entry = Entry(width=35)
-website_entry.grid(row=1, column=1, columnspan=2)
+website_entry = Entry(width=25)
+website_entry.grid(row=1, column=1)
 #da el enfoque al input website_entry
 website_entry.focus()
 email_entry = Entry(width=35)
@@ -102,6 +118,9 @@ genera_pass_button.grid(row=3,column=2)
 # command=save dispara la funcion llamada save cuando de da click en el boton
 agregar_button = Button(text="Agregar", width=32, command=save )
 agregar_button.grid(row=4, column=1, columnspan=2)
+
+search_button = Button(text="Search", command=find_password )
+search_button.grid(row=1, column=2)
 
 
 window.mainloop()
